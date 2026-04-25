@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quest — Play</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="page play-layout">
+    <header class="top-bar">
+      <div class="team-pill"><span class="muted">Team</span> <strong id="team-label">…</strong></div>
+      <a class="link" href="/admin.html" target="_blank" rel="noopener">Admin console</a>
+    </header>
+    <aside class="sidebar">
+      <h2>Leaderboard</h2>
+      <ol id="leaderboard" class="leaderboard"></ol>
+    </aside>
+    <section class="game-wrap">
+      <iframe id="game" title="Game" allow="fullscreen; gamepad; autoplay" loading="eager"></iframe>
+    </section>
+    <script type="module" src="/src/play.ts"></script>
+  </body>
+</html>

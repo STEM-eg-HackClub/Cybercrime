@@ -1,0 +1,209 @@
+:root {
+  --bg: #0c0f14;
+  --surface: #151a22;
+  --border: #2a3344;
+  --text: #e8ecf1;
+  --muted: #8b98a8;
+  --accent: #5b8cff;
+  --error: #ff6b6b;
+  font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  color: var(--text);
+  background: var(--bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body.page {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--error);
+  margin-top: 0.75rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 420px;
+  margin: 2rem auto;
+}
+
+.card h1 {
+  margin-top: 0;
+}
+
+.card label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.card input,
+.card textarea,
+.card select,
+.card button {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.card button {
+  margin-top: 1rem;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.card button.secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  width: auto;
+  margin-top: 0;
+}
+
+.card button:hover {
+  filter: brightness(1.08);
+}
+
+.play-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "side head"
+    "side game";
+  min-height: 100vh;
+  gap: 0;
+}
+
+.top-bar {
+  grid-area: head;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.team-pill {
+  font-size: 0.9rem;
+}
+
+.link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.sidebar {
+  grid-area: side;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1rem;
+  overflow: auto;
+}
+
+.sidebar h2 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.leaderboard {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.leaderboard li {
+  margin-bottom: 0.35rem;
+}
+
+.game-wrap {
+  grid-area: game;
+  background: #000;
+  min-height: 0;
+}
+
+.game-wrap iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .play-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "head"
+      "side"
+      "game";
+  }
+
+  .game-wrap iframe {
+    min-height: 60vh;
+  }
+}
+
+.admin-page .admin-console {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.admin-page .card textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.row {
+  display: block;
+  margin-top: 0.75rem;
+}
+
+.row.spread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.log {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 360px;
+  overflow: auto;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

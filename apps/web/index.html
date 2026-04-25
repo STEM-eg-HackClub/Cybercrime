@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quest — Team</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="page">
+    <main class="card">
+      <h1>Quest</h1>
+      <p class="muted">Enter your team name to start. No password — honor system.</p>
+      <form id="form">
+        <label for="name">Team name</label>
+        <input id="name" name="name" autocomplete="off" maxlength="120" required placeholder="e.g. Team Phoenix" />
+        <button type="submit">Continue</button>
+      </form>
+      <p id="err" class="error" hidden></p>
+    </main>
+    <script type="module" src="/src/landing.ts"></script>
+  </body>
+</html>

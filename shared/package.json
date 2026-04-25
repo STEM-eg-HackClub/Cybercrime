@@ -1,0 +1,10 @@
+{
+  "name": "@quest/shared",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./protocol.ts",
+  "exports": {
+    ".": "./protocol.ts"
+  }
+}

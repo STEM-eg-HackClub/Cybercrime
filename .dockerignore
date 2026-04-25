@@ -1,0 +1,8 @@
+**/node_modules
+**/dist
+**/dist-types
+**/data
+.git
+**/.env
+**/public/game/*.wasm
+**/public/game/*.pck

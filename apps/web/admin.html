@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quest — Admin</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="page admin-page">
+    <main class="admin-console">
+      <header>
+        <h1>Admin console</h1>
+        <p class="muted">Bearer token is stored only in this browser session.</p>
+      </header>
+      <section class="card" id="auth-section">
+        <label for="token">Admin token</label>
+        <input id="token" type="password" autocomplete="off" placeholder="ADMIN_TOKEN from server" />
+        <button type="button" id="save-token">Save &amp; connect</button>
+      </section>
+      <section class="card" id="panel" hidden>
+        <h2>Send hint</h2>
+        <label class="row">
+          <input type="checkbox" id="broadcast" />
+          Broadcast to all teams
+        </label>
+        <label for="team-select">Team</label>
+        <select id="team-select"></select>
+        <label for="hint-text">Message</label>
+        <textarea id="hint-text" rows="3" maxlength="4000" placeholder="Hint text…"></textarea>
+        <button type="button" id="send-hint">Send hint</button>
+        <p id="hint-status" class="muted"></p>
+      </section>
+      <section class="card">
+        <div class="row spread">
+          <h2>Recent events</h2>
+          <button type="button" id="refresh-events" class="secondary">Refresh</button>
+        </div>
+        <pre id="events-log" class="log"></pre>
+      </section>
+    </main>
+    <script type="module" src="/src/admin.ts"></script>
+  </body>
+</html>
