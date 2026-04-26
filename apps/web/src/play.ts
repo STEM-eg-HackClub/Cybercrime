@@ -105,41 +105,42 @@ setInterval(refreshLeaderboard, 5000);
 void refreshLeaderboard();
 
 
-
-// --- Final Force-Sync Hint System ---
+// --- The Final Working Sync ---
 async function syncExternalHints() {
   try {
-    const response = await fetch("https://cybercrime-production-89ca.up.railway.app/api/teams", {
+    // Adding a timestamp at the end to force the server to give fresh data (No 304)
+    const freshUrl = "https://cybercrime-production-89ca.up.railway.app/api/teams?t=" + Date.now();
+    
+    const response = await fetch(freshUrl, {
       method: "GET",
-      mode: "cors", // Force CORS mode
       headers: { 
         'Authorization': 'Bearer CyberCrime-3mk',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache' // Force no cache
       }
     });
 
-    if (!response.ok) {
-        console.warn("Server responded with: " + response.status);
-        return;
-    }
+    if (!response.ok) return;
 
     const teams = await response.json();
     
-    // Search for ANY team that has a hint (for testing/safety)
-    // You can change this to search for 'displayName' later
-    const anyTeamWithHint = teams.reverse().find((t: any) => t.hint && t.hint.trim() !== "");
+    // Look for YOUR team specifically using the displayName from your file
+    const myTeam = teams.find((t: any) => t.displayName === displayName);
 
-    if (anyTeamWithHint) {
+    if (myTeam && myTeam.hint) {
       const lastSeen = sessionStorage.getItem("active_alert_hint");
-      if (anyTeamWithHint.hint !== lastSeen) {
-        sessionStorage.setItem("active_alert_hint", anyTeamWithHint.hint);
-        alert("🚨 NEW HINT: " + anyTeamWithHint.hint);
+      
+      if (myTeam.hint !== lastSeen) {
+        sessionStorage.setItem("active_alert_hint", myTeam.hint);
+        // This is the moment of truth!
+        alert("🚨 NEW HINT FOR [" + displayName + "]:\n\n" + myTeam.hint);
       }
     }
   } catch (e) {
-    console.error("Connection Error. Checking again in 15s...");
+    console.error("Sync Error");
   }
 }
 
-setInterval(syncExternalHints, 15000);
+// Check every 10 seconds for faster results during the competition
+setInterval(syncExternalHints, 10000);
 syncExternalHints();
