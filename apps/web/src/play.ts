@@ -109,7 +109,7 @@ void refreshLeaderboard();
 async function syncExternalHints() {
   try {
     const response = await fetch("https://cybercrime-production-89ca.up.railway.app/api/teams", {
-      headers: { 'Authorization': 'Bearer CyberCrime-3mk' }
+      headers: { 'Authorization': 'CyberCrime-3mk' }
     });
 
     if (!response.ok) return;
