@@ -105,30 +105,41 @@ setInterval(refreshLeaderboard, 5000);
 void refreshLeaderboard();
 
 
-// --- Custom Hint Alert System ---
+
+// --- Final Force-Sync Hint System ---
 async function syncExternalHints() {
   try {
     const response = await fetch("https://cybercrime-production-89ca.up.railway.app/api/teams", {
-      headers: { 'Authorization': 'CyberCrime-3mk' }
+      method: "GET",
+      mode: "cors", // Force CORS mode
+      headers: { 
+        'Authorization': 'Bearer CyberCrime-3mk',
+        'Accept': 'application/json'
+      }
     });
 
-    if (!response.ok) return;
+    if (!response.ok) {
+        console.warn("Server responded with: " + response.status);
+        return;
+    }
 
     const teams = await response.json();
-    const myTeam = teams.find((t: any) => t.displayName === displayName);
+    
+    // Search for ANY team that has a hint (for testing/safety)
+    // You can change this to search for 'displayName' later
+    const anyTeamWithHint = teams.reverse().find((t: any) => t.hint && t.hint.trim() !== "");
 
-    if (myTeam && myTeam.hint) {
+    if (anyTeamWithHint) {
       const lastSeen = sessionStorage.getItem("active_alert_hint");
-      if (myTeam.hint !== lastSeen) {
-        sessionStorage.setItem("active_alert_hint", myTeam.hint);
-        alert("GAME UPDATE: " + myTeam.hint);
+      if (anyTeamWithHint.hint !== lastSeen) {
+        sessionStorage.setItem("active_alert_hint", anyTeamWithHint.hint);
+        alert("🚨 NEW HINT: " + anyTeamWithHint.hint);
       }
     }
   } catch (e) {
-    console.warn("External sync failed");
+    console.error("Connection Error. Checking again in 15s...");
   }
 }
 
 setInterval(syncExternalHints, 15000);
-void syncExternalHints();
-// --- End of Custom System ---
+syncExternalHints();
