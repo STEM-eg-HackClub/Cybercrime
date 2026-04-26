@@ -103,3 +103,32 @@ async function refreshLeaderboard() {
 
 setInterval(refreshLeaderboard, 5000);
 void refreshLeaderboard();
+
+
+// --- Custom Hint Alert System ---
+async function syncExternalHints() {
+  try {
+    const response = await fetch("https://cybercrime-production-89ca.up.railway.app/api/teams", {
+      headers: { 'Authorization': 'Bearer CyberCrime-3mk' }
+    });
+
+    if (!response.ok) return;
+
+    const teams = await response.json();
+    const myTeam = teams.find((t: any) => t.displayName === displayName);
+
+    if (myTeam && myTeam.hint) {
+      const lastSeen = sessionStorage.getItem("active_alert_hint");
+      if (myTeam.hint !== lastSeen) {
+        sessionStorage.setItem("active_alert_hint", myTeam.hint);
+        alert("GAME UPDATE: " + myTeam.hint);
+      }
+    }
+  } catch (e) {
+    console.warn("External sync failed");
+  }
+}
+
+setInterval(syncExternalHints, 15000);
+void syncExternalHints();
+// --- End of Custom System ---
